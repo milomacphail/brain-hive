@@ -1,5 +1,7 @@
 CREATE DATABASE pmernauth;
 
+/*CREATE EXTENSION IF NOT EXISTS "uuid-ossp" */
+
 CREATE TABLE auth
 (
     aid SERIAL PRIMARY KEY,
