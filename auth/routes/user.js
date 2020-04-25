@@ -5,6 +5,9 @@ const pool = require('../db');
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/default').secretOrKey;
 
+//POST new user
+//route to add user
+//public
 router.post('/', async (req, res) => {
   try {
     const { username, email } = req.body;

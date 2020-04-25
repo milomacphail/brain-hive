@@ -20,7 +20,7 @@ CREATE TABLE profile
     last_name VARCHAR(50),
     avatar TEXT,
     github VARCHAR(50),
-    cohort VARCHAR(8),
+    cohort VARCHAR(10),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     last_login TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
