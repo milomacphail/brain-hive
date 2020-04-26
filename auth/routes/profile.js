@@ -9,7 +9,7 @@ const config = require('../config/default');
 //private
 router.get('/current_profile', auth, async (req, res) => {
   try {
-    const { id } = req.user;
+    const id = req.user.id;
     const { first_name, last_name, avatar, github, cohort } = req.body;
 
     const currentProfile = await pool.query(
@@ -19,7 +19,7 @@ router.get('/current_profile', auth, async (req, res) => {
     if (!currentProfile) {
       return res.status(400).json({ msg: 'No profile for this user.' });
     }
-    res.json(currentProfile);
+    res.status(200).json(currentProfile.rows);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
