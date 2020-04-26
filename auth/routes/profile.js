@@ -4,25 +4,24 @@ const pool = require('../db');
 const auth = require('../middleware/auth');
 const config = require('../config/default');
 
-//GET api/profile/current_profile
+//GET api/profiles/current_profile
 //get profile data of logged-in user
 //private
 router.get('/current_profile', auth, async (req, res) => {
   try {
     const id = req.user.id;
-    const { first_name, last_name, avatar, github, cohort } = req.body;
 
-    const currentProfile = await pool.query(
-      'SELECT * FROM profile WHERE aid =$1 AND first_name=$2 AND last_name=$3 AND avatar=$4 AND github=$5 AND cohort=$6',
-      [id, first_name, last_name, avatar, github, cohort]
+    let currentProfile = await pool.query(
+      'SELECT * FROM profile WHERE aid =$1',
+      [id]
     );
-    if (!currentProfile) {
-      return res.status(400).json({ msg: 'No profile for this user.' });
+    if (currentProfile) {
+      currentProfile = currentProfile.rows[0];
+      return res.json(currentProfile);
     }
-    res.status(200).json(currentProfile.rows);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(400).json({ errors: error });
   }
 });
 
