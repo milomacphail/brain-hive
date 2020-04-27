@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
 const registerUser = async (body) => {
   console.log('gateway action registerUser');
   try {
-    const response = await axios.post(`${authServer}/api/users/`, body);
+    const response = await axios.post(`${authServer}api/users/`, body);
     return response;
   } catch (error) {
     console.error(error.response.data);
@@ -46,7 +46,7 @@ const registerUser = async (body) => {
 const loginUser = async (body) => {
   console.log('gateway action login');
   try {
-    const response = await axios.post(`${authServer}/api/users/login`, body);
+    const response = await axios.post(`${authServer}api/users/login`, body);
     return response;
   } catch (error) {
     console.error(error.response.data);
@@ -59,7 +59,7 @@ const registerProfile = async (req) => {
 
   // decide if token is confirmed here or on microservice.
   try {
-    axios.post(`${authServer}/api/profiles`, req.body, {
+    axios.post(`${authServer}api/profiles`, req.body, {
       headers: { 'x-auth-token': token },
     });
   } catch (error) {
