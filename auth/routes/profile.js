@@ -18,6 +18,8 @@ router.get('/current_profile', auth, async (req, res) => {
     if (currentProfile) {
       currentProfile = currentProfile.rows[0];
       return res.json(currentProfile);
+    } else if (!currentProfile.rows.length) {
+      return res.status(404).json({ error: 'Profile not found.' });
     }
   } catch (error) {
     console.error(error.message);
@@ -29,9 +31,7 @@ router.get('/current_profile', auth, async (req, res) => {
 //register profile to logged in user
 //access private
 router.post('/', auth, async (req, res) => {
-  //res.json(req.user); //contains user
-
-  const { id } = req.user;
+  const id = req.user.id;
   const { first_name, last_name, avatar, github, cohort } = req.body;
 
   try {
